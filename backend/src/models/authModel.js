@@ -30,9 +30,9 @@ export const signInUserService = async (userCredentials) => {
         throw new Error("Invalid user credentials!");
     }
     const token = jwt.sign({ id: user.id }, jwtSecret, { expiresIn: "1d" });
-
+    const {password_hash,...restUser} = user;
     return {
-        user,
+        user: restUser,
         token
     }
 }

@@ -8,13 +8,15 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const handleLogin = (data) => {
         // console.log(data);
+
+        // signin user call signin api from nodejs server
         fetch('http://localhost:5000/users/signin-user',{
             method: "POST",
             headers: {'content-type': 'application/json'},
             body: JSON.stringify(data)
         })
         .then(res=>res.json())
-        .then(data=>console.log(data.data.token))
+        .then(data=>console.log(data))
         .catch(error=>console.log("Error is: ",error.message))
     }
     return (
