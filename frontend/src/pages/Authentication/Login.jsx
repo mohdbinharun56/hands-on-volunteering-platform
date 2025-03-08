@@ -16,8 +16,15 @@ const Login = () => {
             body: JSON.stringify(data)
         })
         .then(res=>res.json())
-        .then(data=>console.log(data))
-        .catch(error=>console.log("Error is: ",error.message))
+        .then(data=>{
+            if(data.status===500){
+                return setError(data.error);
+            }
+            setError('')
+            console.log(data.status)
+            console.log(data.message)
+        })
+        .catch(error=>setError(error.message))
     }
     return (
         <div>
