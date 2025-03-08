@@ -4,7 +4,7 @@ import { getAllUsers } from '../controllers/userController.js';
 const router = express.Router();
 
 // get all users
-router.get('/users',getAllUsers);
+router.get('/',getAllUsers);
 
 // signup user or create users 
 // router.post('/users',createUser);

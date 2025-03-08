@@ -7,7 +7,7 @@ const createUserTable = async () => {
     email VARCHAR(200) UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     volunteer_hours INT DEFAULT 0,
-    role VARCHAR(50) DEFAULT 'volunteer', -- 'admin' or 'volunteer'
+    role VARCHAR(50) DEFAULT 'volunteer',
     skills TEXT[] NOT NULL,
     causes TEXT[] NOT NULL
 );`
