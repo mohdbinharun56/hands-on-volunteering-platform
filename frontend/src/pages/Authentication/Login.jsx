@@ -6,7 +6,8 @@ const Login = () => {
     const [error,setError] = useState("");
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const handleLogin = (data) => {
+    const handleLogin = (data,e) => {
+        e.preventDefault();
         // console.log(data);
 
         // signin user call signin api from nodejs server
@@ -18,11 +19,13 @@ const Login = () => {
         .then(res=>res.json())
         .then(data=>{
             if(data.status===500){
+                e.target.reset();
                 return setError(data.error);
             }
             setError('')
             console.log(data.status)
             console.log(data.message)
+            e.target.reset();
         })
         .catch(error=>setError(error.message))
     }
