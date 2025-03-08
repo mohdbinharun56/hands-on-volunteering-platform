@@ -4,8 +4,8 @@ import jwt from 'jsonwebtoken';
 
 const jwtSecret = process.env.JWT_SECRET || "defaultSecret";
 export const createUserService = async (user) => {
-    const { name, email, password_hash, skills, causes } = user;
-    const bycriptPassword = await bcrypt.hash(password_hash, 10);
+    const { name, email, password, skills, causes } = user;
+    const bycriptPassword = await bcrypt.hash(password, 10);
     const result = await pool.query(`
         INSERT INTO users (name,email,password_hash,skills,causes) 
         VALUES ($1,$2,$3,$4,$5) RETURNING *`,
