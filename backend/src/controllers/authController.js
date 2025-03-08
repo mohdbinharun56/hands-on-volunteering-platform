@@ -1,8 +1,7 @@
-// sign-up / create user
-
-import { createUserService } from "../models/authModel.js";
+import { createUserService, signInUserService } from "../models/authModel.js";
 import handleResponse from "./handleResponse.js";
 
+// create user / sign-up user
 export const createUser = async (req, res, next) => {
     try {
         const newUser = req.body;
@@ -12,4 +11,15 @@ export const createUser = async (req, res, next) => {
         next(error);
     }
 
+}
+
+// signin user
+export const signInUser = async(req,res,next)=>{
+    try{
+        const userCredentials = req.body;
+        const loginUser = await signInUserService(userCredentials);
+        handleResponse(res,200,"User logged in successfully",loginUser);
+    } catch(error){
+        next(error);
+    }
 }

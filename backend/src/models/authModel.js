@@ -1,13 +1,37 @@
 import pool from "../config/db.js";
 import bcrypt from "bcryptjs";
+import jwt from 'jsonwebtoken';
 
-
+const jwtSecret = process.env.JWT_SECRET || "defaultSecret";
 export const createUserService = async(user) =>{
-    const {name,email,password_hash,volunteer_hours,role,skills,causes} = user;
+    const {name,email,password_hash,skills,causes} = user;
     const bycriptPassword = await bcrypt.hash(password_hash,10);
     const result = await pool.query(`
         INSERT INTO users (name,email,password_hash,skills,causes) 
-        VALUES ($1,$2,$3,$4,$5)`,
-        [name,email,bycriptPassword,skills,causes]);
-        return result.rows;
+        VALUES ($1,$2,$3,$4,$5) RETURNING *`,
+        [name,email,bycriptPassword,skills,causes]
+    );
+    return result.rows;
+}
+
+// Signin user 
+export const signInUserService = async(userCredentials) =>{
+    const {email,password} = userCredentials;
+    const isUserExist = await pool.query("SELECT * FROM users where email=$1",[email]);
+    if(!isUserExist){
+        // Incorrect user credentials 
+        throw new Error("Invalid user credentials!");
+    }
+    const user = isUserExist.rows[0];
+    const isMatch = await bcrypt.compare(password,user.password_hash);
+    if(!isMatch){
+        // Incorrect user credentials
+        throw new Error("Invalid user credentials!");
+    }
+    const token = jwt.sign({id: user.id},jwtSecret,{expiresIn: "1d"});
+
+    return {
+        user,
+        token
+    }
 }
