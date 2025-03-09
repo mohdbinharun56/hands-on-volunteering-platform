@@ -1,31 +1,39 @@
-import { useState } from "react";
+// import { createContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+// import useProvider from "../../components/AuthProvider/useProvider";
+import { CreateAuth } from "../../components/AuthProvider/AuthProvider";
+
+
+// use context api
+// const authContext = createContext(null);
 
 const Login = () => {
+    const {setId,setToken,login} = useContext(CreateAuth);
     const [error,setError] = useState("");
-
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const handleLogin = (data,e) => {
         e.preventDefault();
         // console.log(data);
 
         // signin user call signin api from nodejs server
-        fetch('http://localhost:5000/users/signin-user',{
-            method: "POST",
-            headers: {'content-type': 'application/json'},
-            body: JSON.stringify(data)
-        })
+        login(data)
         .then(res=>res.json())
         .then(data=>{
             if(data.status===500){
                 e.target.reset();
                 return setError(data.error);
             }
-            setError('')
-            console.log(data.status)
-            console.log(data.message)
+            // console.log(data.status);
+            // console.log("Token is: ",data.data.token);
+            // console.log("user id is:",data.data.user.id);
+            setError('');
+            setId(data.data.user.id);
+            setToken(data.data.token);
             e.target.reset();
+            navigate('/');
         })
         .catch(error=>setError(error.message))
     }

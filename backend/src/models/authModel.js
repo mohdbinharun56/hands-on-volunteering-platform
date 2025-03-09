@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
 const jwtSecret = process.env.JWT_SECRET || "defaultSecret";
+
 export const createUserService = async (user) => {
     const { name, email, password, skills, causes } = user;
     const bycriptPassword = await bcrypt.hash(password, 10);
@@ -18,6 +19,7 @@ export const createUserService = async (user) => {
 export const signInUserService = async (userCredentials) => {
     const { email, password } = userCredentials;
     const isUserExist = await pool.query("SELECT * FROM users where email=$1", [email]);
+    // console.log(isUserExist.rows.length);
     if (isUserExist.rows.length === 0) {
         // Incorrect user credentials 
         throw new Error("Invalid user credentials!");
@@ -30,9 +32,10 @@ export const signInUserService = async (userCredentials) => {
         throw new Error("Invalid user credentials!");
     }
     const token = jwt.sign({ id: user.id }, jwtSecret, { expiresIn: "1d" });
-    const {password_hash,...restUser} = user;
+
+    const {id} = user;
     return {
-        user: restUser,
+        user: {id},
         token
     }
 }

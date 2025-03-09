@@ -6,5 +6,10 @@ export const getAllUserService = async()=>{
     return result.rows;
 }
 
+// get user 
+export const getUserService = async(id)=>{
+    const result = await pool.query("SELECT * from users where id=$1",[id]);
+    return result.rows;
+}
 // update user profile
 // export const updateUsersService = async()

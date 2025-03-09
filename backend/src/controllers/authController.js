@@ -14,12 +14,40 @@ export const createUser = async (req, res, next) => {
 }
 
 // signin user
-export const signInUser = async(req,res,next)=>{
-    try{
+// export const signInUser = async(req,res,next)=>{
+//     try{
+//         const userCredentials = req.body;
+//         const loginUserToken = await signInUserService(userCredentials);
+//         // console.log(loginUserToken);
+//         res.cookie("token",loginUserToken.token,{
+//             httpOnly: true,
+//             secure: false,
+//             sameSite: "strict"
+//         })
+//         handleResponse(res,200,"User logged in successfully",loginUserToken);
+//     } catch(error){
+//         next(error);
+//     }
+// }
+
+
+export const signInUser = async (req, res, next) => {
+    try {
         const userCredentials = req.body;
-        const loginUser = await signInUserService(userCredentials);
-        handleResponse(res,200,"User logged in successfully",loginUser);
-    } catch(error){
+        const loginUserToken = await signInUserService(userCredentials);
+        
+        console.log("Setting cookie with token:", loginUserToken.token);  // Debugging
+
+        res.cookie("token", loginUserToken.token, {
+            httpOnly: true,
+            secure: false, 
+            sameSite: "strict"
+        });
+
+        console.log("Cookies after setting:", req.cookies); // Check if it's set
+
+        handleResponse(res, 200, "User logged in successfully", loginUserToken);
+    } catch (error) {
         next(error);
     }
-}
+};
