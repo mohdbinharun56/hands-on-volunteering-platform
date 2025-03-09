@@ -33,9 +33,9 @@ export const signInUserService = async (userCredentials) => {
     }
     const token = jwt.sign({ id: user.id }, jwtSecret, { expiresIn: "1d" });
 
-    const {id} = user;
+    const {password_hash,...restUser} = user;
     return {
-        user: {id},
+        user: restUser,
         token
     }
 }

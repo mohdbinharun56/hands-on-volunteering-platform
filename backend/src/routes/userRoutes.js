@@ -5,7 +5,7 @@ import authenticateToken from '../middlewares/auth.js';
 const router = express.Router();
 
 // get all users
-router.get('/',getAllUsers);
+router.get('/',authenticateToken,getAllUsers);
 
 // get user 
 router.get('/:id',authenticateToken,getUser);

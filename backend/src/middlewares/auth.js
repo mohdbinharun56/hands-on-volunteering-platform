@@ -1,11 +1,8 @@
-import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken'; 
 
 const { JWT_SECRET } = process.env;
 
 const authenticateToken = (req, res, next) => {
-    // console.log(req.cookies);
-    console.log("Raw Cookies Header:", req.headers.cookie);
-    console.log("Parsed Cookies:", req.cookies);
     const token = req.cookies.token;
     console.log("token from cookies: ", token);
     if (!token) {

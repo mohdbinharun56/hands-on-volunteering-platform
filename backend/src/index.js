@@ -6,7 +6,6 @@ import cookieParser from 'cookie-parser';
 import pool from './config/db.js';
 import errorHandling from './middlewares/errorHandlers.js';
 import createUserTable from './data/createUserTable.js';
-
 import userRoutes from './routes/userRoutes.js';
 import authRoutes from'./routes/authRoutes.js';
 
@@ -15,6 +14,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(cookieParser());
+
 app.use(cors({
     origin: "http://localhost:5173",
     credentials: true
@@ -27,6 +27,7 @@ app.use('/users',authRoutes);
 
 // Error Handling
 app.use(errorHandling);
+
 // Create User Table
 createUserTable();
 
