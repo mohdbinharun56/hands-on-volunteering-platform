@@ -8,3 +8,14 @@ CREATE TABLE IF NOT EXISTS users(
     skills TEXT[] NOT NULL,
     causes TEXT[] NOT NULL, 
 );
+
+CREATE TABLE IF NOT EXISTS events(
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    description VARCHAR(200) NOT NULL,
+    Date TIMESTAMP NOT NULL,
+    location VARCHAR(200) NOT NULL,
+    category VARCHAR(50) NOT NULL, -- 'education' or 'environment'
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE 
+);

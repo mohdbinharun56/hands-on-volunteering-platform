@@ -8,6 +8,7 @@ import errorHandling from './middlewares/errorHandlers.js';
 import createUserTable from './data/createUserTable.js';
 import userRoutes from './routes/userRoutes.js';
 import authRoutes from'./routes/authRoutes.js';
+import createEvents from './data/createEventTable.js';
 
 dotenv.config();
 const app = express();
@@ -30,6 +31,8 @@ app.use(errorHandling);
 
 // Create User Table
 createUserTable();
+// Create Events Table
+createEvents();
 
 // check connection DB
 app.get('/',async(req,res)=>{
