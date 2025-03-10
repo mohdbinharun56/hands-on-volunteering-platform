@@ -3,7 +3,7 @@ import pool from '../config/db.js';
 
 const createEvents = async () => {
     const queryText = `
-    CREATE TABLE events(
+    CREATE TABLE IF NOT EXISTS events(
     id SERIAL PRIMARY KEY,
     title VARCHAR(200) NOT NULL,
     description VARCHAR(200) NOT NULL,

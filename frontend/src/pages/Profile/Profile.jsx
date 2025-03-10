@@ -5,7 +5,7 @@ const Profile = () => {
     const { user } = useContext(CreateAuth);
 
     return (
-        <div className="md:w-[700px]">
+        <div className="lg:w-1/2 mx-auto">
             <div className="absolute top-0">
                 <h1 className="text-center font-bold text-3xl">Welcome to {user.name}</h1>
             </div>

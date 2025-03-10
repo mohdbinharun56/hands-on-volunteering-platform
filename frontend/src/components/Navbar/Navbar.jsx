@@ -19,7 +19,7 @@ const Navbar = () => {
                     <li className="border border-orange-400"><NavLink to='/events'>Events</NavLink></li>
                     {
                         user?.role === 'admin' && <li className="border border-orange-400">
-                            <NavLink to='/events'>Event Create</NavLink>
+                            <NavLink to='/addevents'>Event Create</NavLink>
                         </li>
                     }
 

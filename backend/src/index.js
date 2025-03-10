@@ -4,11 +4,15 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 
 import pool from './config/db.js';
+
 import errorHandling from './middlewares/errorHandlers.js';
+
 import createUserTable from './data/createUserTable.js';
+import createEvents from './data/createEventTable.js';
+
 import userRoutes from './routes/userRoutes.js';
 import authRoutes from'./routes/authRoutes.js';
-import createEvents from './data/createEventTable.js';
+import eventRoutes from './routes/eventRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -25,7 +29,7 @@ app.use(express.json())
 // Routes
 app.use('/users',userRoutes);
 app.use('/users',authRoutes);
-
+app.use('/events',eventRoutes);
 // Error Handling
 app.use(errorHandling);
 
