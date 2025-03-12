@@ -6,11 +6,11 @@ import EventsCard from '../../components/EventsCard/EventsCard';
 import { CreateAuth } from '../../components/AuthProvider/AuthProvider';
 
 const Events = () => {
-    const { user } = useContext(CreateAuth);
+    const { user,events,setEvents } = useContext(CreateAuth);
 
     const loadedEvents = useLoaderData();
     console.log(loadedEvents.data);
-    const [events, setEvents] = useState([]);
+    // const [events, setEvents] = useState([]);
     const [educationCategories, setEducationCategories] = useState([]);
     const [environmentCategories, setEnvironmentCategories] = useState([]);
     const [healthcareCategories, setHealthcareCategories] = useState([]);

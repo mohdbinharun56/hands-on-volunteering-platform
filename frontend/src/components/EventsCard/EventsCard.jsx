@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { CreateAuth } from "../AuthProvider/AuthProvider";
+import { useLocation } from "react-router-dom";
 
 const EventsCard = ({ value,openModal }) => {
     const { user } = useContext(CreateAuth);
     // const [eventValue, setEventValue] = useState(null);
+    const pathLocation = useLocation();
 
     const { id, title, description, date, location, category } = value;
 
@@ -13,6 +15,11 @@ const EventsCard = ({ value,openModal }) => {
         month: "2-digit",
         year: 'numeric'
     })
+
+    
+
+    const hidebtn = [`/history/${user.id}`];
+    const showbtn = hidebtn.includes(pathLocation.pathname);
 
     return (
         <div className="card shadow-md my-5 border border-black">
@@ -27,7 +34,10 @@ const EventsCard = ({ value,openModal }) => {
                     user.role === "volunteer" ? <div>
                         {/* <button onClick={() => handleJoiEvents(id)} className="btn btn-success font-bold">Join Event</button> */}
                         {/* Open the modal using document.getElementById('ID').showModal() method */}
-                        <button className="btn btn-success font-bold" onClick={() => openModal(value)}>Join Event</button>
+                        {
+                            showbtn ? <button className="btn btn-error font-bold" onClick={() => openModal(value)}>Delete</button>
+                            : <button className="btn btn-success font-bold" onClick={() => openModal(value)}>Join Event</button>
+                        }
 
                     </div> : <div className="mt-2">
                         <button className="btn btn-primary font-bold">Edit</button>

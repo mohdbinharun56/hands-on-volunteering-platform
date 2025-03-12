@@ -7,7 +7,26 @@ export const CreateAuth = createContext(null);
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [id, setId] = useState(null);
+    const [events, setEvents] = useState([]);
+
     const [loading, setLoading] = useState(true);
+    // console.log("events is from provider",events.length);
+
+    useEffect(()=>{
+        fetch('http://localhost:5000/events')
+        .then(res=>res.json())
+        .then(data=>{
+            console.log("data",data.data);
+            const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+            if (user?.role === "admin") {
+                setEvents(data.data);
+            } else {
+                const upcomingEvents = data.data.filter(event => event.date >= today);
+                setEvents(upcomingEvents);
+            }
+        })
+        .catch(error=>console.log(error))
+    },[user?.role])
 
     useEffect(() => {
 
@@ -70,7 +89,9 @@ const AuthProvider = ({ children }) => {
         setId,
         loading,
         login,
-        logout
+        logout,
+        setEvents,
+        events
     }
     return (
         <CreateAuth.Provider value={info}>

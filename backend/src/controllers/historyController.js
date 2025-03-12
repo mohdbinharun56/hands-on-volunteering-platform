@@ -8,6 +8,7 @@ export const getHistory = async(req,res,next)=>{
         if(!result){
             return handleResponse(res,400,"User Not Found");
         }
+        
         handleResponse(res,200,"Get History of users",result);
     }catch(error){
         next(error)

@@ -50,10 +50,11 @@ const router = createBrowserRouter([
                 ),
                 loader: ()=> fetch('http://localhost:5000/events')
             },{
-                path: '/history',
+                path: '/history/:id',
                 element:(<ProtectedRoutes>
                     <VolunteerHistory></VolunteerHistory>
-                </ProtectedRoutes>)
+                </ProtectedRoutes>),
+                loader: ({params})=>fetch(`http://localhost:5000/history/${params.id}`)
             }
         ]
     }
