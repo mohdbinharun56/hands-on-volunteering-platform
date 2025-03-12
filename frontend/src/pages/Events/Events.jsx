@@ -1,15 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import EventsCard from '../../components/EventsCard/EventsCard';
 import { CreateAuth } from '../../components/AuthProvider/AuthProvider';
+import { toast } from 'react-toastify';
 
 const Events = () => {
     const { user,events,setEvents } = useContext(CreateAuth);
-
+    const refClose = useRef();
     const loadedEvents = useLoaderData();
-    console.log(loadedEvents.data);
+    // console.log(loadedEvents.data);
     // const [events, setEvents] = useState([]);
     const [educationCategories, setEducationCategories] = useState([]);
     const [environmentCategories, setEnvironmentCategories] = useState([]);
@@ -51,8 +52,14 @@ const Events = () => {
     }, [events])
 
 
-    const openModal = (eventValue) => {
-        setEventValue(eventValue);
+    const openModal = (newEventValue) => {
+        console.log(eventValue);
+        if(eventValue===newEventValue){
+            document.getElementById('dynamic_modal').showModal()
+            return
+        }
+        
+        setEventValue(newEventValue);
     }
 
     useEffect(() => {
@@ -81,6 +88,13 @@ const Events = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                if(!data.data){
+                    toast(data.message);
+                    refClose.current.click();
+                    return
+                }
+                toast("Register The Events");
+                refClose.current.click();
             })
             .catch(error=>console.log("ERROR while inserting Attendees",error))
     }
@@ -127,7 +141,7 @@ const Events = () => {
                         <div className="modal-action">
                             <form method="dialog">
                                 {/* if there is a button in form, it will close the modal */}
-                                <button className="btn">Close</button>
+                                <button ref={refClose} className="btn">Close</button>
                             </form>
                         </div>
                     </div>

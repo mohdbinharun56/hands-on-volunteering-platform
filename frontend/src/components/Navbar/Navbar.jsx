@@ -3,7 +3,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { CreateAuth } from "../AuthProvider/AuthProvider";
 
 const Navbar = () => {
-    const { logout, user } = useContext(CreateAuth);
+    const context = useContext(CreateAuth);
+    if(!context){
+        return null;
+    }
+    const { logout, user } = context;
     const navigate = useNavigate();
     const handleLogOut = () => {
         logout();

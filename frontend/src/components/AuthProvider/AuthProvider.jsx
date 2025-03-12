@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 
 export const CreateAuth = createContext(null);
 
@@ -8,7 +9,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [id, setId] = useState(null);
     const [events, setEvents] = useState([]);
-
+    const [selectHistory,setSelectHistory] = useState([]);
     const [loading, setLoading] = useState(true);
     // console.log("events is from provider",events.length);
 
@@ -84,6 +85,29 @@ const AuthProvider = ({ children }) => {
         Cookies.remove('user');
     }
 
+
+    const handleDelete = (event_id)=>{
+        console.log("Delete: ",event_id,"user id is",user.id);
+        // send user id and event id
+        fetch(`http://localhost:5000/history/${user.id}/${event_id}`,{
+            method: "DELETE",
+            body: JSON.stringify({user_id:user.id,event_id})
+        })
+        .then(res=>{
+            console.log(res)
+            res.json()
+        })
+        .then((data)=>{
+            console.log("data Delete:",data)
+            const filterHistory = selectHistory?.filter(history=>history.id!==event_id);
+            // console.log(filterHistory)
+            setSelectHistory(filterHistory)
+            toast("Delete Susccessfully!");
+        })
+        .catch(error=>console.log("Error to delete: ",error))
+
+    }
+
     const info = {
         user,
         setId,
@@ -91,7 +115,10 @@ const AuthProvider = ({ children }) => {
         login,
         logout,
         setEvents,
-        events
+        events,
+        handleDelete,
+        selectHistory,
+        setSelectHistory
     }
     return (
         <CreateAuth.Provider value={info}>
