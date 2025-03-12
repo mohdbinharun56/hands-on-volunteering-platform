@@ -1,16 +1,19 @@
 import { useContext } from "react";
 import { CreateAuth } from "../AuthProvider/AuthProvider";
 
-const EventsCard = ({ value }) => {
+const EventsCard = ({ value,openModal }) => {
     const { user } = useContext(CreateAuth);
+    // const [eventValue, setEventValue] = useState(null);
 
-    const { title, description, date, location, category } = value;
+    const { id, title, description, date, location, category } = value;
+
     const dateObj = new Date(date);
     const formattedDate = dateObj.toLocaleDateString("en-GB", {
         day: "2-digit",
         month: "2-digit",
         year: 'numeric'
     })
+
     return (
         <div className="card shadow-md my-5 border border-black">
 
@@ -22,10 +25,13 @@ const EventsCard = ({ value }) => {
                 <p><span className="font-medium">Category:</span> {category}</p>
                 {
                     user.role === "volunteer" ? <div>
-                        <button className="btn btn-success">Join</button>
+                        {/* <button onClick={() => handleJoiEvents(id)} className="btn btn-success font-bold">Join Event</button> */}
+                        {/* Open the modal using document.getElementById('ID').showModal() method */}
+                        <button className="btn btn-success font-bold" onClick={() => openModal(value)}>Join Event</button>
+
                     </div> : <div className="mt-2">
-                        <button className="btn btn-primary">Edit</button>
-                        <button className="btn btn-error ml-3">Delete</button>
+                        <button className="btn btn-primary font-bold">Edit</button>
+                        <button className="btn btn-error ml-3 font-bold">Delete</button>
                     </div>
                 }
             </div>

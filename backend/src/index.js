@@ -9,10 +9,12 @@ import errorHandling from './middlewares/errorHandlers.js';
 
 import createUserTable from './data/createUserTable.js';
 import createEvents from './data/createEventTable.js';
+import createAttendees from './data/createAttendeesTable.js';
 
 import userRoutes from './routes/userRoutes.js';
 import authRoutes from'./routes/authRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
+import attendeesRoutes from './routes/attendeesRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -30,6 +32,8 @@ app.use(express.json())
 app.use('/users',userRoutes);
 app.use('/users',authRoutes);
 app.use('/events',eventRoutes);
+app.use('/attendees',attendeesRoutes);
+
 // Error Handling
 app.use(errorHandling);
 
@@ -37,6 +41,8 @@ app.use(errorHandling);
 createUserTable();
 // Create Events Table
 createEvents();
+// Create Attendees Table
+createAttendees();
 
 // check connection DB
 app.get('/',async(req,res)=>{

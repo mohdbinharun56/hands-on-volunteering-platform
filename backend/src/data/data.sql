@@ -19,3 +19,12 @@ CREATE TABLE IF NOT EXISTS events(
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE 
 );
+
+
+CREATE TABLE IF NOT EXISTS attendees(
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    event_id INT NOT NULL,
+    FOREIGN key (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN Key (event_id) REFERENCES events(id) ON DELETE CASCADE   
+)

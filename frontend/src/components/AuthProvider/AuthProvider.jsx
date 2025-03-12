@@ -24,20 +24,6 @@ const AuthProvider = ({ children }) => {
         }
     }, [])
 
-    // useEffect(() => {
-    //     if (id) {
-    //         fetch(`http://localhost:5000/users/${id}`,{
-    //             credentials: 'include'
-    //         })
-    //         .then(res=>res.json())
-    //         .then(data=>{
-    //             console.log(data.data)
-    //             setUser(data.data);
-    //         })
-    //     }
-    //     setLoading(false)
-    // }, [])
-
     const login = async (data) => {
         setLoading(true);
         try {
