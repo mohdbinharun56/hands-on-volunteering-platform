@@ -7,6 +7,7 @@ import ProtectedRoutes from "../components/ProtectedRoutes/ProtectedRoutes";
 import Profile from "../pages/Profile/Profile";
 import CreateEvents from "../pages/Events/CreateEvents";
 import Events from "../pages/Events/Events";
+import VolunteerHistory from "../pages/VlunteerHistory/VolunteerHistory";
 
 const router = createBrowserRouter([
     {
@@ -48,6 +49,11 @@ const router = createBrowserRouter([
                     </ProtectedRoutes>
                 ),
                 loader: ()=> fetch('http://localhost:5000/events')
+            },{
+                path: '/history',
+                element:(<ProtectedRoutes>
+                    <VolunteerHistory></VolunteerHistory>
+                </ProtectedRoutes>)
             }
         ]
     }

@@ -11,6 +11,10 @@ export const attendeeList = async(req,res,next)=>{
         }
         console.log("Attendees List is: ",list)
         const result = await attendeeListService(res,list);
+        // console.log("Length of the result: ",result.length)
+        if(result.length<1){
+            return handleResponse(res,409,"User is already register for this event")
+        }
         handleResponse(res,200,"Register Events",result);
     }catch(error){
         next(error)

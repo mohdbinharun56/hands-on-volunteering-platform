@@ -24,7 +24,7 @@ const Navbar = () => {
                     }
                     {
                         user?.role === 'volunteer' && <li className="border border-orange-400">
-                        <NavLink to='/sessions'>Sessions</NavLink>
+                        <NavLink to='/history'>History</NavLink>
                     </li>
                     }
 

@@ -15,6 +15,7 @@ import userRoutes from './routes/userRoutes.js';
 import authRoutes from'./routes/authRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
 import attendeesRoutes from './routes/attendeesRoutes.js';
+import historyRoutes from './routes/historyRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -33,6 +34,7 @@ app.use('/users',userRoutes);
 app.use('/users',authRoutes);
 app.use('/events',eventRoutes);
 app.use('/attendees',attendeesRoutes);
+app.use('/history',historyRoutes)
 
 // Error Handling
 app.use(errorHandling);
