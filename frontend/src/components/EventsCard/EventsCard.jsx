@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { CreateAuth } from "../AuthProvider/AuthProvider";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-const EventsCard = ({ value,openModal }) => {
-    const { user,handleDelete } = useContext(CreateAuth);
-    // const [eventValue, setEventValue] = useState(null);
+const EventsCard = ({ value, openModal }) => {
+    const { user, handleDelete } = useContext(CreateAuth);
+    
     const pathLocation = useLocation();
 
     const { id, title, description, date, location, category } = value;
@@ -16,7 +16,7 @@ const EventsCard = ({ value,openModal }) => {
         year: 'numeric'
     })
 
-    const hidebtn = [`/history/${user.id}`];
+    const hidebtn = [`/history/${user?.id}`,'/'];
     const showbtn = hidebtn.includes(pathLocation.pathname);
 
     return (
@@ -29,17 +29,22 @@ const EventsCard = ({ value,openModal }) => {
                 <p><span className="font-medium">Location:</span> {location}</p>
                 <p><span className="font-medium">Category:</span> {category}</p>
                 {
-                    user.role === "volunteer" ? <div>
-                        {/* <button onClick={() => handleJoiEvents(id)} className="btn btn-success font-bold">Join Event</button> */}
-                        {/* Open the modal using document.getElementById('ID').showModal() method */}
+                    showbtn ? <small>For more Info. Please Go to <Link to='/events' className="text-blue-500 hover:underline">Events</Link></small>:
+                    <div>
                         {
-                            showbtn ? <button className="btn btn-error font-bold" onClick={() => handleDelete(id)}>Delete</button>
-                            : <button className="btn btn-success font-bold" onClick={() => openModal(value)}>Join Event</button>
-                        }
+                            user?.role === "volunteer" ? <div>
+                                {/* <button onClick={() => handleJoiEvents(id)} className="btn btn-success font-bold">Join Event</button> */}
+                                {/* Open the modal using document.getElementById('ID').showModal() method */}
+                                {
+                                    showbtn ? <button className="btn btn-error font-bold" onClick={() => handleDelete(id)}>Delete</button>
+                                        : <button className="btn btn-success font-bold" onClick={() => openModal(value)}>Join Event</button>
+                                }
 
-                    </div> : <div className="mt-2">
-                        <button className="btn btn-primary font-bold">Edit</button>
-                        <button className="btn btn-error ml-3 font-bold">Delete</button>
+                            </div> : <div className="mt-2">
+                                <button className="btn btn-primary font-bold">Edit</button>
+                                <button className="btn btn-error ml-3 font-bold">Delete</button>
+                            </div>
+                        }
                     </div>
                 }
             </div>

@@ -28,3 +28,23 @@ CREATE TABLE IF NOT EXISTS attendees(
     FOREIGN key (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN Key (event_id) REFERENCES events(id) ON DELETE CASCADE   
 )
+
+CREATE TABLE IF NOT EXISTS helpPosts(
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    description TEXT NOT NULL,
+    posted_by INT NOT NULL,
+    urgency VARCHAR(10) CHECK(urgency IN ("Low","Medium", "Urgent")) NOT NULL,
+    status VARCHAR(10) CHECK(status IN ("Open","Close")) DEFAULT 'Open',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (posted_by) REFERENCES users(id) On DELETE CASCADE
+)
+
+CREATE TABLE IF NOT EXISTS comments(
+    id SERIAL PRIMARY KEY,
+    message TEXT NOT NULL,
+    message_by INT NOT NULL,
+    posted_id INT NOT NULL,
+    FOREIGN KEY (message_by) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (posted_id) REFERENCES helpPosts(id) ON DELETE CASCADE
+)

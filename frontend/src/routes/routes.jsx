@@ -8,6 +8,7 @@ import Profile from "../pages/Profile/Profile";
 import CreateEvents from "../pages/Events/CreateEvents";
 import Events from "../pages/Events/Events";
 import VolunteerHistory from "../pages/VlunteerHistory/VolunteerHistory";
+import HelpPosts from "../pages/HelpPosts/HelpPosts";
 
 const router = createBrowserRouter([
     {
@@ -16,9 +17,10 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: (<ProtectedRoutes>
+                element: (
                     <Home></Home>
-                </ProtectedRoutes>)
+                ),
+                loader: ()=> fetch('http://localhost:5000/posts')
             },
             {
                 path: '/login',
@@ -45,16 +47,23 @@ const router = createBrowserRouter([
                 path: '/events',
                 element:(
                     <ProtectedRoutes>
-                        <Events></Events>
+                        <Events style='w-1/2'></Events>
                     </ProtectedRoutes>
                 ),
                 loader: ()=> fetch('http://localhost:5000/events')
-            },{
+            },
+            {
                 path: '/history/:id',
                 element:(<ProtectedRoutes>
                     <VolunteerHistory></VolunteerHistory>
                 </ProtectedRoutes>),
                 loader: ({params})=>fetch(`http://localhost:5000/history/${params.id}`)
+            },
+            {
+                path: '/help-posts',
+                element:(<ProtectedRoutes>
+                    <HelpPosts></HelpPosts>
+                </ProtectedRoutes>),
             }
         ]
     }

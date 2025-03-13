@@ -6,8 +6,8 @@ import EventsCard from '../../components/EventsCard/EventsCard';
 import { CreateAuth } from '../../components/AuthProvider/AuthProvider';
 import { toast } from 'react-toastify';
 
-const Events = () => {
-    const { user,events,setEvents } = useContext(CreateAuth);
+const Events = ({ style }) => {
+    const { user, events, setEvents, loading, setLoading } = useContext(CreateAuth);
     const refClose = useRef();
     const loadedEvents = useLoaderData();
     // console.log(loadedEvents.data);
@@ -15,50 +15,44 @@ const Events = () => {
     const [educationCategories, setEducationCategories] = useState([]);
     const [environmentCategories, setEnvironmentCategories] = useState([]);
     const [healthcareCategories, setHealthcareCategories] = useState([]);
-
     const [eventValue, setEventValue] = useState(null);
+    
 
     // set events comparing with user role [admin can view all events but volunteer only view upcomming events]
     useEffect(() => {
+        setLoading(true);
         const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
-
-        if (user.role === "admin") {
+        setEvents(loadedEvents.data);
+        if (user?.role === "admin") {
             setEvents(loadedEvents.data);
         } else {
             const upcomingEvents = loadedEvents.data.filter(event => event.date >= today);
             setEvents(upcomingEvents);
         }
-    }, [loadedEvents.data, user.role]);
+        
+        setLoading(false)
+    }, [loadedEvents.data, user?.role]);
 
     // set education category
     useEffect(() => {
-        const categoryEducation = events?.filter(event => event.category === 'Education');
-        console.log(categoryEducation);
-        setEducationCategories(categoryEducation);
+        if (events.length > 0) {
+            const categoryEducation = events?.filter(event => event.category === 'Education');
+            const categoryEnvironment = events?.filter(event => event.category === 'Environment');
+            const categoryHealthcare = events?.filter(event => event.category === 'Healthcare');
+            console.log(categoryEducation);
+            setEducationCategories(categoryEducation);
+            setEnvironmentCategories(categoryEnvironment);
+            setHealthcareCategories(categoryHealthcare);
+        }
     }, [events])
-
-    // set environment category
-    useEffect(() => {
-        const categoryEnvironment = events?.filter(event => event.category === 'Environment');
-        console.log(categoryEnvironment);
-        setEnvironmentCategories(categoryEnvironment);
-    }, [events])
-
-    // set healthcare category
-    useEffect(() => {
-        const categoryHealthcare = events?.filter(event => event.category === 'Healthcare');
-        console.log(categoryHealthcare);
-        setHealthcareCategories(categoryHealthcare);
-    }, [events])
-
 
     const openModal = (newEventValue) => {
         console.log(eventValue);
-        if(eventValue===newEventValue){
+        if (eventValue === newEventValue) {
             document.getElementById('dynamic_modal').showModal()
             return
         }
-        
+
         setEventValue(newEventValue);
     }
 
@@ -75,7 +69,7 @@ const Events = () => {
         const name = form.name.value;
         const email = form.email.value;
         const event_id = id;
-        const user_id = user.id;
+        const user_id = user?.id;
 
         console.log(name, email, event_id, user_id);
 
@@ -88,7 +82,7 @@ const Events = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                if(!data.data){
+                if (!data.data) {
                     toast(data.message);
                     refClose.current.click();
                     return
@@ -96,11 +90,17 @@ const Events = () => {
                 toast("Register The Events");
                 refClose.current.click();
             })
-            .catch(error=>console.log("ERROR while inserting Attendees",error))
+            .catch(error => console.log("ERROR while inserting Attendees", error))
     }
+    // useEffect(() => {
+        if (loading) {
+            console.log("Loading..")
+            return <div>Loading...</div>
+        }
+    // }, [events])
 
     return (
-        <div className='lg:w-1/2 mx-auto'>
+        <div className={`lg:${style} mx-auto`}>
             <h1 className='font-bold text-xl mb-3 text-center'>Events Categories</h1>
             <Tabs>
                 <TabList>
@@ -129,12 +129,12 @@ const Events = () => {
             <dialog id="dynamic_modal" className="modal modal-bottom sm:modal-middle">
                 {
                     eventValue && <div className="modal-box">
-                        <h3 className="font-bold text-lg">Register For {eventValue.title}</h3>
-                        <form className="mt-2 space-y-2" onSubmit={(e) => handleRegisterEvents(e, eventValue.id)}>
+                        <h3 className="font-bold text-lg">Register For {eventValue?.title}</h3>
+                        <form className="mt-2 space-y-2" onSubmit={(e) => handleRegisterEvents(e, eventValue?.id)}>
                             <label htmlFor="name">Name</label>
-                            <input type="text" defaultValue={user.name} name="name" required className="outline-none border border-slate-300 p-1  w-full rounded-md" />
+                            <input type="text" defaultValue={user?.name} name="name" required className="outline-none border border-slate-300 p-1  w-full rounded-md" />
                             <label htmlFor="name">Email</label>
-                            <input type="email" defaultValue={user.email} name="email" className="outline-none border border-slate-300 p-1  w-full rounded-md" />
+                            <input type="email" defaultValue={user?.email} name="email" className="outline-none border border-slate-300 p-1  w-full rounded-md" />
                             <input type="submit" value="Register" className="w-full btn btn-secondary" />
                         </form>
 

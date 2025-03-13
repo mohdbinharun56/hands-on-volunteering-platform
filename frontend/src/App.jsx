@@ -4,8 +4,10 @@ import Navbar from "./components/Navbar/Navbar"
 function App() {
   const location = useLocation();
 
-  const hideNav = ["/login", "/register"];
+  const hideNav = ["/login", "/register","/"];
   const showNav = !hideNav.includes(location.pathname);
+  const hideFooter = ['/login','/register'];
+  const showFooter = !hideFooter.includes(location.pathname)
   return (
     <div className="flex flex-col min-h-screen bg-[#f1f1f4]">
       <div className="w-1/6 absolute z-10">
@@ -19,7 +21,7 @@ function App() {
         <Outlet></Outlet>
       </div>
       {
-        showNav && <div className="bg-black text-white text-3xl font-bold z-10 text-center">
+        showFooter && <div className="p-10 mt-10 bg-black text-white text-3xl font-bold z-10 text-center">
         <h1>Footer</h1>
       </div>
       }

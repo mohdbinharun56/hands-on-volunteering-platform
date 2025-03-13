@@ -11,7 +11,6 @@ const AuthProvider = ({ children }) => {
     const [events, setEvents] = useState([]);
     const [selectHistory,setSelectHistory] = useState([]);
     const [loading, setLoading] = useState(true);
-    // console.log("events is from provider",events.length);
 
     useEffect(()=>{
         fetch('http://localhost:5000/events')
@@ -56,10 +55,6 @@ const AuthProvider = ({ children }) => {
             const result = await response.json();
 
             if (response.ok) {
-                // setUser(data)
-                // console.log(result.data.user);
-                // console.log(result.data.token);
-
                 Cookies.set('user',JSON.stringify(result.data.user));
                 localStorage.setItem('token',result.data.token);
 
@@ -112,6 +107,7 @@ const AuthProvider = ({ children }) => {
         user,
         setId,
         loading,
+        setLoading,
         login,
         logout,
         setEvents,
