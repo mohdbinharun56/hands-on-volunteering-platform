@@ -55,17 +55,22 @@ Hands on Volunteering is a platform developed to connect individuals with meanin
 ## 📌 Setup Instructions
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/your-repo/project-name.git
+   git clone https://github.com/mohdbinharun56/hands-on-volunteering-platform.git
    ```
 2. **Navigate into the project directory:**
+  *Backend*
    ```sh
-   cd project-name
+   cd backend
    ```
-3. **Install dependencies:**
+  *Frontend*
+   ```sh
+   cd frontend
+   ```
+4. **Install dependencies:**
    ```sh
    npm install
    ```
-4. **Configure environment variables:**
+5. **Configure environment variables:**
    - Create a `.env` file in the root directory.
    - Add the following variables:
      ```env
