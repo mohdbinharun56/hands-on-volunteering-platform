@@ -12,3 +12,23 @@ export const createEventService = async (newEvent) => {
     return result.rows;
 }
 
+
+export const updateEventService = async(id,updateEvent)=>{
+    const {title, description, date, location, category} = updateEvent;
+    const isExistId = await pool.query("SELECT * from events where id = $1 ", [id]);
+    if(isExistId.rowCount<1){
+        throw new Error("ID is not found");
+    }
+    const result = await pool.query("UPDATE events SET title = $1, description=$2, date=$3, location=$4, category=$5 WHERE id=$6",[title, description, date, location, category,id]);
+    return result;
+}
+
+
+export const deleteEventService = async(id)=>{
+    const isExistId = await pool.query("SELECT * FROM events where id=$1",[id]);
+    if(isExistId.rowCount<1){
+        throw new Error("ID is not found");
+    }
+    const result = await pool.query("DELETE FROM events where id=$1",[id]);
+    return result;
+}

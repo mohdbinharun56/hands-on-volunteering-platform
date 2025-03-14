@@ -1,4 +1,4 @@
-import { getPostByIDService, getPostService, helpPostService } from "../models/helpPostModule.js";
+import { deletePostService, getPostByIDService, getPostService, helpPostService } from "../models/helpPostModule.js";
 import handleResponse from "./handleResponse.js";
 
 
@@ -35,5 +35,20 @@ export const helpPost = async(req,res,next)=>{
         handleResponse(res,200,"Help post added.",result);
     } catch (error) {
         next(error);
+    }
+    
+}
+
+
+export const deletePost = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const result = await deletePostService(id);
+        if(result.rowCount<1){
+            return handleResponse(res,400,"Post not DELETE")
+        }
+        handleResponse(res,200,"Post DELETE successfully",result);
+    }catch(error){
+        next(error)
     }
 }

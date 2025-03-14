@@ -53,6 +53,7 @@ const PostDetails = () => {
                         toast("Comments sent----");
                         window.location.reload();
                         refClose.current.click();
+                        // setComments([...comments,...data.data])
                     }
                     else {
                         toast("Comments does not sent----/ Please try again.");

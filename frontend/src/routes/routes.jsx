@@ -10,6 +10,8 @@ import Events from "../pages/Events/Events";
 import VolunteerHistory from "../pages/VlunteerHistory/VolunteerHistory";
 import HelpPosts from "../pages/HelpPosts/HelpPosts";
 import PostDetails from "../components/PostDetails/PostDetails";
+import UpdateProfile from "../pages/UpdateProfile/UpdateProfile";
+import EventsUpdate from "../pages/EventsUpdate/EventsUpdate";
 
 const router = createBrowserRouter([
     {
@@ -72,6 +74,18 @@ const router = createBrowserRouter([
                     <PostDetails></PostDetails>
                 </ProtectedRoutes>),
                 loader: ({params})=> fetch(`http://localhost:5000/posts/${params.id}`)
+            },
+            {
+                path: '/profiles/:id',
+                element: (<ProtectedRoutes>
+                    <UpdateProfile></UpdateProfile>
+                </ProtectedRoutes>)
+            },
+            {
+                path: '/events/:id',
+                element: (<ProtectedRoutes>
+                    <EventsUpdate></EventsUpdate>
+                </ProtectedRoutes>)
             }
         ]
     }

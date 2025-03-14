@@ -7,20 +7,18 @@ import { CreateAuth } from '../../components/AuthProvider/AuthProvider';
 import { toast } from 'react-toastify';
 
 const Events = ({ style }) => {
-    const { user, events, setEvents, loading, setLoading } = useContext(CreateAuth);
+    const { user, events, setEvents } = useContext(CreateAuth);
     const refClose = useRef();
     const loadedEvents = useLoaderData();
-    // console.log(loadedEvents.data);
-    // const [events, setEvents] = useState([]);
+
     const [educationCategories, setEducationCategories] = useState([]);
     const [environmentCategories, setEnvironmentCategories] = useState([]);
     const [healthcareCategories, setHealthcareCategories] = useState([]);
     const [eventValue, setEventValue] = useState(null);
-    
+
 
     // set events comparing with user role [admin can view all events but volunteer only view upcomming events]
     useEffect(() => {
-        setLoading(true);
         const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
         setEvents(loadedEvents.data);
         if (user?.role === "admin") {
@@ -29,11 +27,9 @@ const Events = ({ style }) => {
             const upcomingEvents = loadedEvents.data.filter(event => event.date >= today);
             setEvents(upcomingEvents);
         }
-        
-        setLoading(false)
     }, [loadedEvents.data, user?.role]);
 
-    // set education category
+    // set all categories 
     useEffect(() => {
         if (events.length > 0) {
             const categoryEducation = events?.filter(event => event.category === 'Education');
@@ -92,12 +88,6 @@ const Events = ({ style }) => {
             })
             .catch(error => console.log("ERROR while inserting Attendees", error))
     }
-    // useEffect(() => {
-        if (loading) {
-            console.log("Loading..")
-            return <div>Loading...</div>
-        }
-    // }, [events])
 
     return (
         <div className={`lg:${style} mx-auto`}>

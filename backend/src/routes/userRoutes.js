@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllUsers, getUser } from '../controllers/userController.js';
+import { getAllUsers, getUser, updateUser } from '../controllers/userController.js';
 import authenticateToken from '../middlewares/auth.js';
 
 const router = express.Router();
@@ -10,17 +10,9 @@ router.get('/',authenticateToken,getAllUsers);
 // get user 
 router.get('/:id',authenticateToken,getUser);
 
-// signup user or create users 
-// router.post('/users',createUser);
+// update user profile
 
-// login user
-// router.post('/users/login',loginUsers);
-
-// edit/update user profile
-// router.put('/users/:id',updateUsers);
-
-// View History
-// router.get('users/history/:id',viewHistoryUsers);
+router.put('/:id',updateUser)
 
 
 export default router;

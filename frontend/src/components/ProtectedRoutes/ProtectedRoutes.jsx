@@ -6,7 +6,7 @@ const ProtectedRoutes = ({children}) => {
     const {loading,user} = useContext(CreateAuth);
     console.log(user);
     if(loading){
-        return <div className="text-7xl font-bold">Loading..</div>
+        return <div className="lg:w-1/2 mx-auto text-7xl font-bold">Loading..</div>
     }
     if(user){
         return children;

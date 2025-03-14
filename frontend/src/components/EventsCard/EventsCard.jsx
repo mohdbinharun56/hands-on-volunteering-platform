@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const EventsCard = ({ value, openModal }) => {
     const { user, handleDelete } = useContext(CreateAuth);
-    
+
     const pathLocation = useLocation();
 
     const { id, title, description, date, location, category } = value;
@@ -16,9 +16,11 @@ const EventsCard = ({ value, openModal }) => {
         year: 'numeric'
     })
 
-    const hidebtn = [`/history/${user?.id}`,'/'];
-    const showbtn = hidebtn.includes(pathLocation.pathname);
-
+    const hideDeletebtn = ['/'];
+    const showbtn = hideDeletebtn.includes(pathLocation.pathname);
+    const hidebtn = [`/history/${user?.id}`];
+    const showJoin = hidebtn.includes(pathLocation.pathname);
+    console.log(showJoin);
     return (
         <div className="card shadow-md my-5 border border-black">
 
@@ -36,13 +38,14 @@ const EventsCard = ({ value, openModal }) => {
                                 {/* <button onClick={() => handleJoiEvents(id)} className="btn btn-success font-bold">Join Event</button> */}
                                 {/* Open the modal using document.getElementById('ID').showModal() method */}
                                 {
-                                    showbtn ? <button className="btn btn-error font-bold" onClick={() => handleDelete(id)}>Delete</button>
+                                    showJoin ? <button className="btn btn-error font-bold" onClick={() => handleDelete('history',id)}>Delete</button>
                                         : <button className="btn btn-success font-bold" onClick={() => openModal(value)}>Join Event</button>
                                 }
 
                             </div> : <div className="mt-2">
-                                <button className="btn btn-primary font-bold">Edit</button>
-                                <button className="btn btn-error ml-3 font-bold">Delete</button>
+                                {/* <button >Edit</button> */}
+                                <Link to={`/events/${value?.id}`} className="btn btn-primary font-bold">Edit</Link>
+                                <button onClick={() => handleDelete('events',value?.id)} className="btn btn-error ml-3 font-bold" >Delete</button>
                             </div>
                         }
                     </div>
