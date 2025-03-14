@@ -9,6 +9,7 @@ import CreateEvents from "../pages/Events/CreateEvents";
 import Events from "../pages/Events/Events";
 import VolunteerHistory from "../pages/VlunteerHistory/VolunteerHistory";
 import HelpPosts from "../pages/HelpPosts/HelpPosts";
+import PostDetails from "../components/PostDetails/PostDetails";
 
 const router = createBrowserRouter([
     {
@@ -64,6 +65,13 @@ const router = createBrowserRouter([
                 element:(<ProtectedRoutes>
                     <HelpPosts></HelpPosts>
                 </ProtectedRoutes>),
+            },
+            {
+                path: '/postDeatails/:id',
+                element: (<ProtectedRoutes>
+                    <PostDetails></PostDetails>
+                </ProtectedRoutes>),
+                loader: ({params})=> fetch(`http://localhost:5000/posts/${params.id}`)
             }
         ]
     }

@@ -27,7 +27,7 @@ const Home = () => {
             <div>
                 <h1 className="font-bold text-3xl mt-10 pl-20">Volunteers Opportunities</h1>
                 <p className="mt-2 pl-20">Community Help to Get opportuniies of volunteers</p>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 px-20 mt-10">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 px-20 mt-10 gap-10">
                     {
                         loadedPosts?.data?.map(post => <PostCard key={post.id} post={post}></PostCard>)
                     }

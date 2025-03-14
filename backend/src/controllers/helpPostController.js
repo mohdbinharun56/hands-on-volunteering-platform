@@ -1,4 +1,4 @@
-import { getPostService, helpPostService } from "../models/helpPostModule.js";
+import { getPostByIDService, getPostService, helpPostService } from "../models/helpPostModule.js";
 import handleResponse from "./handleResponse.js";
 
 
@@ -11,6 +11,20 @@ export const getPost = async(req,res,next)=>{
         handleResponse(res,200,"Fetch Help Posts",result);
     }catch(error){
         next(error);
+    }
+}
+
+export const getPostByID = async(req,res,next)=>{
+    try {
+        const id = req.params.id;
+        const result = await getPostByIDService(id);
+        console.log(result)
+        if(!result){
+            throw new Error("Not Found this ID posts")
+        }
+        handleResponse(res,200,"Find the post",result);
+    } catch (error) {
+        next(error)
     }
 }
 export const helpPost = async(req,res,next)=>{

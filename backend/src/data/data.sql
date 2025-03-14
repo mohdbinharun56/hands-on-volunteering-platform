@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS comments(
     id SERIAL PRIMARY KEY,
     message TEXT NOT NULL,
     message_by INT NOT NULL,
-    posted_id INT NOT NULL,
+    post_id INT NOT NULL,
     FOREIGN KEY (message_by) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (posted_id) REFERENCES helpPosts(id) ON DELETE CASCADE
+    FOREIGN KEY (post_id) REFERENCES helpPosts(id) ON DELETE CASCADE
 )

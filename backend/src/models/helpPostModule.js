@@ -6,6 +6,17 @@ export const getPostService = async() =>{
     const result = await pool.query("SELECT * FROM helpposts");
     return result.rows;
 }
+
+
+export const getPostByIDService = async (id)=>{
+    const post = await pool.query("SELECT users.name,users.email,helpposts.title, helpposts.description, helpposts.urgency, helpposts.status FROM helpposts JOIN users ON helpposts.posted_by = users.id where helpposts.id = $1",[id]);
+    if(post.rowCount<1){
+        throw new Error("This post is not available");
+    }
+    // console.log(post); 
+    return post.rows;
+}
+
 export const helpPostService = async(newPost)=>{
     const {title,description,posted_by,urgency,status} = newPost;
     if(!title || !description || !posted_by || !urgency || !status){
@@ -19,3 +30,4 @@ export const helpPostService = async(newPost)=>{
     return result.rows;
 
 }
+

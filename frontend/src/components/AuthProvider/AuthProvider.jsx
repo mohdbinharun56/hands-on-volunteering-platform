@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useRef, useState } from 'react';
 
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
@@ -12,6 +12,7 @@ const AuthProvider = ({ children }) => {
     const [selectHistory,setSelectHistory] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const refClose  = useRef();
     useEffect(()=>{
         fetch('http://localhost:5000/events')
         .then(res=>res.json())
@@ -114,7 +115,8 @@ const AuthProvider = ({ children }) => {
         events,
         handleDelete,
         selectHistory,
-        setSelectHistory
+        setSelectHistory,
+        refClose
     }
     return (
         <CreateAuth.Provider value={info}>
