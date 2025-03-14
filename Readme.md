@@ -58,24 +58,32 @@ Hands on Volunteering is a platform developed to connect individuals with meanin
    git clone https://github.com/mohdbinharun56/hands-on-volunteering-platform.git
    ```
 2. **Navigate into the project directory:**
-  *Backend*
+
+   <div>
+    
+    *Backend*
    ```sh
    cd backend
    ```
-  *Frontend*
+   *Frontend*
    ```sh
    cd frontend
    ```
-4. **Install dependencies:**
+   </div>
+3. **Install dependencies:**
    ```sh
    npm install
    ```
-5. **Configure environment variables:**
+4. **Configure environment variables:**
    - Create a `.env` file in the root directory.
    - Add the following variables:
      ```env
-     DATABASE_URL=your_database_url
      JWT_SECRET=your_jwt_secret
+     DB_HOST= localhost
+     DB_USER= db-user
+     DB_PASSWORD=your-password
+     DB_DATABASE= your-db-name
+     DB_PORT=your_database=port
      ```
 
 ## 📌 Running the Project
