@@ -65,15 +65,15 @@ const PostDetails = () => {
         e.target.reset();
     }
     return (
-        <div className="lg:w-1/2 mx-auto ">
+        <div className="lg:w-1/2 mx-10 lg:mx-auto mt-10">
             <div className="card shadow-md p-5">
                 <p className="font-thin text-sm">Post By,</p>
                 <div className="flex items-center pl-5">
-                    <h1 className="card-title ">{loadPost.data[0].name}{'-'}</h1>
+                    <h1 className="card-title">{loadPost.data[0].name}{'-'}</h1>
                     <small>{loadPost.data[0].email}</small>
                 </div>
                 <div className="card-body space-y-1">
-                    <h1 className="font-bold text-3xl"> {loadPost.data[0].title}</h1>
+                    <h1 className="font-bold text-xl md:text-3xl"> {loadPost.data[0].title}</h1>
                     <p className="text-base font-normal"><span className="font-semibold">Overview:</span> {loadPost.data[0].description}</p>
                     <p className="text-base font-normal"><span className="font-semibold">Category:</span> {loadPost.data[0].urgency}</p>
                     <p className="text-base font-normal"><span className="font-semibold">Status:</span> {loadPost.data[0].status}</p>

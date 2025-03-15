@@ -38,8 +38,7 @@ const UpdateProfile = () => {
     }
 
     return (
-        <div className="lg:w-1/2 mx-auto">
-            {/* <h1>Profile Update {id}</h1> */}
+        <div className="lg:w-1/2 mx-auto mt-10">
             <form onSubmit={handleSubmit(handleUpdateProfile)} className="border border-slate-400 w-3/4 mx-auto space-y-5 p-5">
                 <div>
                     <label htmlFor="name" className="block">Name</label>

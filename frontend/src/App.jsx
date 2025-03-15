@@ -10,14 +10,14 @@ function App() {
   const showFooter = !hideFooter.includes(location.pathname)
   return (
     <div className="flex flex-col min-h-screen bg-[#f1f1f4]">
-      <div className="w-1/6 absolute z-10">
+      <div className="lg:w-1/6 lg:absolute z-10">
         {
-          showNav && <div className="shadow-md min-h-screen bg-violet-300">
+          showNav && <div className="shadow-md lg:min-h-screen bg-violet-300 p-2">
             <Navbar></Navbar>
           </div>
         }
       </div>
-      <div className="w-[100%] mx-auto flex-grow mt-14">
+      <div className="w-[100%] mx-auto flex-grow">
         <Outlet></Outlet>
       </div>
       {

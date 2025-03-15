@@ -62,7 +62,7 @@ const EventsUpdate = () => {
 
     }
     return (
-        <div className="lg:w-1/2 mx-auto rounded-md border border-black px-5 py-3">
+        <div className="lg:w-1/2 md:mx-10 lg:mx-auto rounded-md md:border md:border-black px-5 py-3 mt-10">
             <form onSubmit={handleUpdateEvents} className="space-y-4">
                 <div>
                     <label htmlFor="title" className="block">Title</label>

@@ -31,8 +31,8 @@ const HelpPosts = () => {
     }
 
     return (
-        <div className="lg:w-1/2 mx-auto">
-            <h1 className="font-bold text-3xl">Community Help Post</h1>
+        <div className="lg:w-1/2 mx-auto mt-10">
+            <h1 className="font-bold text-center text-xl md:text-3xl">Community Help Post</h1>
             <form onSubmit={handleSubmit(handleHelpPost)} className="space-y-4 mt-10 w-3/4 mx-auto px-2 shadow-md rounded-sm shadow-slate-400">
                 <label htmlFor="title" className="block text-lg font-thin">Title</label>
                 <input type="text" placeholder="Title" className="input input-info w-full"  {...register("title", { required: true })}/>

@@ -90,7 +90,7 @@ const Events = ({ style }) => {
     }
 
     return (
-        <div className={`lg:${style} mx-auto`}>
+        <div className={`lg:${style} mx-auto mt-10`}>
             <h1 className='font-bold text-xl mb-3 text-center'>Events Categories</h1>
             <Tabs>
                 <TabList>

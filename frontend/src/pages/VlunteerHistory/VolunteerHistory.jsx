@@ -21,7 +21,7 @@ const VolunteerHistory = () => {
     
 
     return (
-        <div className="lg:w-1/2 mx-auto">
+        <div className="lg:w-1/2 mx-auto mt-10">
             <h1 className="font-bold text-center text-3xl">History</h1>
             {
                 selectHistory?.map(history=><EventsCard key={history.id} value={history}></EventsCard>)

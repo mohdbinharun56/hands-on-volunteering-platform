@@ -81,7 +81,7 @@ const Signup = () => {
     }
 
     return (
-        <div>
+        <div className="mt-10">
             <div className="mt-2">
                 <div className="space-y-5 md:w-[600px] mx-auto shadow-md border border-[#ABABAB] rounded-md px-10 py-4 ">
                     <h1 className="text-2xl md:text-4xl font-bold">Register</h1>
