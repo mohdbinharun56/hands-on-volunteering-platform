@@ -5,12 +5,12 @@ import jwt from 'jsonwebtoken';
 const jwtSecret = process.env.JWT_SECRET || "defaultSecret";
 
 export const createUserService = async (user) => {
-    const { name, email, password, skills, causes } = user;
+    const { name, email, password,role, skills, causes } = user;
     const bycriptPassword = await bcrypt.hash(password, 10);
     const result = await pool.query(`
-        INSERT INTO users (name,email,password_hash,skills,causes) 
-        VALUES ($1,$2,$3,$4,$5) RETURNING *`,
-        [name, email, bycriptPassword, skills, causes]
+        INSERT INTO users (name,email,password_hash,role,skills,causes) 
+        VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`,
+        [name, email, bycriptPassword,role,skills, causes]
     );
     return result.rows;
 }

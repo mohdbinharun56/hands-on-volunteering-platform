@@ -16,7 +16,7 @@ const Signup = () => {
     const handleRegister = (data, e) => {
         e.preventDefault();
         // console.log(data);
-        const { name, email, password } = data;
+        const { name, email, password,role } = data;
 
         if (password.length < 6) {
             setError('Password must be at least 6 characters or long');
@@ -39,7 +39,7 @@ const Signup = () => {
             return;
         }
         e.target.reset();
-        console.log({ "name": name, "Email": email, 'Password': password, skills, causes })
+        // console.log({ "name": name, "Email": email, 'Password': password,role, skills, causes })
         setError("");
         setSkillsError("");
         setCausesError("")
@@ -47,7 +47,7 @@ const Signup = () => {
         setCauses("");
 
         const newUser = {
-            name,email,password,skills,causes
+            name,email,password,role,skills,causes
         }
         
         // register user
@@ -108,7 +108,14 @@ const Signup = () => {
                             {/* <span onClick={handleToggle} className="relative -left-7">{toggle ? <IoEyeOffSharp className="cursor-pointer" /> : <FaRegEye className="cursor-pointer" />}</span> */}
                         </div>
                         {errors.password && <span className="text-red-500">This field is required</span>}
-
+                        
+                        <div>
+                            <select className="w-full text-base font-medium outline-none border border-black p-2 rounded-ss-xl" {...register("role", { required: true })}>
+                                <option value="volunteer">volunteer</option>
+                                <option value="admin">admin</option>
+                            </select>
+                            {errors.role && <span className="text-red-500">This field is required</span>}
+                        </div>
                         <div>
                             <div>
                                 {/* The button to open modal */}
